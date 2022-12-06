@@ -55,8 +55,8 @@ const findQuerySearchResult = `
         c.img_url,
         wp.title,
         wc.eng_category_name AS category_name,
-        IFNULL(a.comment_cnt, '0') comment_cnt,
-        IFNULL(b.sympathy_cnt, '0') sympathy_cnt,
+        IFNULL(a.comment_cnt, '0') AS comment_cnt,
+        IFNULL(b.sympathy_cnt, '0') AS sympathy_cnt,
         wp.view_count,
         SUBSTRING(wp.created_at, 1, 10) AS created_at
     FROM
@@ -74,36 +74,33 @@ const findQuerySearchResult = `
   `;
 
 // TODO Tag 검색기능 다시 추가하기
+// TODO 복잡한 변수는 ?로 넣을 수 없는건가?
 // 검색어 입력시 + 카테고리 설정
-const getSearchList = async query => {
-  const resultCount = await myDataSource.query(
+const getSearchList = async queryArr => {
+  const searchResultCount = await myDataSource.query(
     `
-        SELECT
-            COUNT(*) result_cnt
-        FROM
-            Works_Posting wp
-        WHERE
-            wp.title LIKE CONCAT('%', ?, '%')
-          OR wp.content LIKE CONCAT('%', ?, '%')
-    `,
-    [query, query]
+      SELECT
+          COUNT(*) AS result_cnt
+      FROM
+          Works_Posting wp
+      WHERE
+          ${queryArr}
+    `
   );
 
   const searchResult = await myDataSource.query(
     `
-       ${findQuerySearchResult}
-        WHERE 
-          wp.title LIKE CONCAT('%', ?, '%') 
-            OR wp.content LIKE CONCAT('%', ?, '%')
-        ORDER BY 
-          wp.created_at DESC 
-        `,
-    [query, query]
+    ${findQuerySearchResult}
+    WHERE 
+      ${queryArr}
+    ORDER BY 
+      wp.created_at DESC 
+    `
   );
-  return { resultCount, searchResult };
+  return { searchResultCount, searchResult };
 };
 
-const getSearchListWithCategory = async (query, category_name) => {
+const getSearchListWithCategory = async (queryArr, category_name) => {
   const resultCount = await myDataSource.query(
     `
           SELECT
@@ -113,28 +110,24 @@ const getSearchListWithCategory = async (query, category_name) => {
                   LEFT JOIN Works_Category wc
                             ON wp.category_id = wc.id
           WHERE
-              (wp.title LIKE CONCAT('%', ?, '%')
-                  OR wp.content LIKE CONCAT('%', ?, '%')
-                  )
+              ${queryArr}
             AND wc.eng_category_name = ?
           ORDER BY
               wp.created_at DESC
         `,
-    [query, query, category_name]
+    [category_name]
   );
 
   const searchResult = await myDataSource.query(
     `
         ${findQuerySearchResult}
         WHERE 
-          (wp.title LIKE CONCAT('%', ?, '%') 
-              OR wp.content LIKE CONCAT('%', ?, '%')
-          )
+          ${queryArr}
              AND wc.eng_category_name = ?
         ORDER BY 
           wp.created_at DESC 
       `,
-    [query, query, category_name]
+    [category_name]
   );
   return { resultCount, searchResult };
 };

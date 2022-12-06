@@ -1,4 +1,3 @@
-// const { json } = require('express');
 const { util } = require('../utils/util');
 const uploadService = require('../services/uploadService');
 const jwt = require('jsonwebtoken');

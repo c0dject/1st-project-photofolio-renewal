@@ -4,7 +4,8 @@ const searchListService = require('../services/searchListService');
 const getSearchList = async (req, res) => {
   const { query } = req.query;
   const { category_name } = req.query;
-  const result = await searchListService.getSearchList(query, category_name);
+  const queryArr = query.split(' ');
+  const result = await searchListService.getSearchList(queryArr, category_name);
   res.status(200).json(result);
 };
 
