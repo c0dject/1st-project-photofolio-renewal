@@ -77,7 +77,7 @@ const findQuerySearchResult = `
 // TODO 복잡한 변수는 ?로 넣을 수 없는건가?
 // 검색어 입력시 + 카테고리 설정
 const getSearchList = async queryArr => {
-  const searchResultCount = await myDataSource.query(
+  const resultCount = await myDataSource.query(
     `
       SELECT
           COUNT(*) AS result_cnt
@@ -97,7 +97,7 @@ const getSearchList = async queryArr => {
       wp.created_at DESC 
     `
   );
-  return { searchResultCount, searchResult };
+  return { resultCount, searchResult };
 };
 
 const getSearchListWithCategory = async (queryArr, category_name) => {
@@ -111,7 +111,7 @@ const getSearchListWithCategory = async (queryArr, category_name) => {
                             ON wp.category_id = wc.id
           WHERE
               ${queryArr}
-            AND wc.eng_category_name = ?
+            AND wc.id = ?
           ORDER BY
               wp.created_at DESC
         `,
@@ -123,7 +123,7 @@ const getSearchListWithCategory = async (queryArr, category_name) => {
         ${findQuerySearchResult}
         WHERE 
           ${queryArr}
-             AND wc.eng_category_name = ?
+             AND wc.id = ?
         ORDER BY 
           wp.created_at DESC 
       `,
