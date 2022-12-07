@@ -1,8 +1,23 @@
 {
+  "parser":  "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 2017,
+      "sourceType": "module"
   },
-  "extends": ["plugin:prettier/recommended"],
+//  "plugins": ["@typescript-eslint"],
+  "extends":  [
+//    "plugin:@typescript-eslint/eslint-recommended",
+//    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+//  "overrides": [
+//    {
+//      "files": ["*.js", "*.jsx"],
+//      "rules": {
+//        "@typescript-eslint/explicit-function-return-type": "off"
+//      }
+//    }
+//  ],
   "rules": {
     "no-var": "warn", // var 금지
     "no-multiple-empty-lines": "warn", // 여러 줄 공백 금지
