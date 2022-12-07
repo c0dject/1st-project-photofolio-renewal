@@ -1,24 +1,24 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const { asyncWrap } = require('../utils/util');
-const { validateToken } = require('../middlewares/validateToken');
-const sympathyController = require('../controllers/sympathyController');
+import asyncWrap from '../utils/utility';
+import validateToken from '../middlewares/validateToken';
+import sympathyController from '../controllers/sympathyController';
 
 router.get(
   '/:id',
-  asyncWrap(validateToken),
-  asyncWrap(sympathyController.findSympathyOfFeedByUser)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(sympathyController.findSympathyOfFeedByUser)
 );
 router.post(
   '',
-  asyncWrap(validateToken),
-  asyncWrap(sympathyController.createSympathy)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(sympathyController.createSympathy)
 );
 router.delete(
   '',
-  asyncWrap(validateToken),
-  asyncWrap(sympathyController.deleteSympathy)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(sympathyController.deleteSympathy)
 );
 
-module.exports = router;
+export default router;

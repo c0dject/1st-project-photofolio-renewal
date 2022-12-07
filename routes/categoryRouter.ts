@@ -1,10 +1,13 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const { asyncWrap } = require('../utils/util');
-const categoryController = require('../controllers/categoryController');
+import asyncWrap from '../utils/utility';
+import categoryController from '../controllers/categoryController';
 
-router.get('/tags', asyncWrap(categoryController.findTagCount));
-router.get('/:categoryName', asyncWrap(categoryController.findCategoryList));
+router.get('/tags', asyncWrap.asyncWrap(categoryController.findTagCount));
+router.get(
+  '/:categoryName',
+  asyncWrap.asyncWrap(categoryController.findCategoryList)
+);
 
-module.exports = router;
+export default router;

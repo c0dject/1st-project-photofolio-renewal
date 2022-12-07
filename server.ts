@@ -5,7 +5,7 @@ dotenv.config();
 
 const startServer = async () => {
   // FIXME 어떻게 해야 사라지나?
-  const app = createApp();
+  const app = createApp.createApp();
   const port = process.env.PORT;
 
   app.listen(port, () => {

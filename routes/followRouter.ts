@@ -1,26 +1,26 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const { asyncWrap } = require('../utils/util');
-const { validateToken } = require('../middlewares/validateToken');
-const followController = require('../controllers/followController');
+import asyncWrap from '../utils/utility';
+import validateToken from '../middlewares/validateToken';
+import followController from '../controllers/followController';
 
 // getFollow (팔로우 여부 확인)
 router.post(
   '/check',
-  asyncWrap(validateToken),
-  asyncWrap(followController.getFollowResult)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(followController.getFollowResult)
 );
 
 router.post(
   '',
-  asyncWrap(validateToken),
-  asyncWrap(followController.createFollow)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(followController.createFollow)
 );
 router.delete(
   '',
-  asyncWrap(validateToken),
-  asyncWrap(followController.deleteFollow)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(followController.deleteFollow)
 );
 
-module.exports = router;
+export default router;

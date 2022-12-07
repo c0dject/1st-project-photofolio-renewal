@@ -36,4 +36,4 @@ const validateToken = async (req: Request, res: Response, next: any) => {
   }
 };
 
-module.exports = { validateToken };
+export default { validateToken };

@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const { asyncWrap } = require('../utils/util');
-const searchListController = require('../controllers/searchListController');
+import asyncWrap from '../utils/utility';
+import searchListController from '../controllers/searchListController';
 
 // 검색어 입력시 + 카테고리 설정
-router.get('', asyncWrap(searchListController.getSearchList));
+router.get('', asyncWrap.asyncWrap(searchListController.getSearchList));
 
 module.exports = router;

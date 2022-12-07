@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const { asyncWrap } = require('../utils/util');
-const channelController = require('../controllers/channelController');
+import asyncWrap from '../utils/utility';
+import channelController from '../controllers/channelController';
 
 // 최신 feed list
-router.get('/:following_id', asyncWrap(channelController.getChannel));
+router.get('/:following_id', asyncWrap.asyncWrap(channelController.getChannel));
 
-module.exports = router;
+export default router;

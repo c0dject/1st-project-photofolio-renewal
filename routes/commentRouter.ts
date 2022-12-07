@@ -1,11 +1,24 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const { validateToken } = require('../middlewares/validateToken');
-const commentController = require('../controllers/commentController');
+import asyncWrap from '../utils/utility';
+import validateToken from '../middlewares/validateToken';
+import commentController from '../controllers/commentController';
 
-router.post('/', validateToken, commentController.postComment);
-router.patch('/', validateToken, commentController.modifiyComment);
-router.delete('/', validateToken, commentController.deleteComment);
+router.post(
+  '/',
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(commentController.postComment)
+);
+router.patch(
+  '/',
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(commentController.modifiyComment)
+);
+router.delete(
+  '/',
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(commentController.deleteComment)
+);
 
-module.exports = router;
+export default router;

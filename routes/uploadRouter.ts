@@ -1,17 +1,17 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-const { upload } = require('../utils/util');
-const { asyncWrap } = require('../utils/util');
-const { validateToken } = require('../middlewares/validateToken');
-const uploadController = require('../controllers/uploadController');
+import asyncWrap from '../utils/utility';
+import validateToken from '../middlewares/validateToken';
+import upload from '../utils/utility';
+import uploadController from '../controllers/uploadController';
 
 //여러장 사진 업로드
 router.post(
   '/form',
-  asyncWrap(validateToken),
-  upload.array('file', 4),
-  asyncWrap(uploadController.uploadImages)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  upload.upload.array('file', 4),
+  asyncWrap.asyncWrap(uploadController.uploadImages)
 );
 
-module.exports = router;
+export default router;

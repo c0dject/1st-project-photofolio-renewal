@@ -1,38 +1,39 @@
-const express = require('express');
-const router = express.Router();
-const { upload } = require('../utils/util');
+import { Router } from 'express';
+const router = Router();
 
-const { asyncWrap } = require('../utils/util');
-const { validateToken } = require('../middlewares/validateToken');
-const userController = require('../controllers/userController');
+import asyncWrap from '../utils/utility';
+import validateToken from '../middlewares/validateToken';
+
+import upload from '../utils/utility';
+import userController from '../controllers/userController';
 
 //회원가입
 router.post(
   '/signup',
-  upload.single('profile'),
-  asyncWrap(userController.createUser)
+  upload.upload.single('profile'),
+  asyncWrap.asyncWrap(userController.createUser)
 );
 
 //로그인
-router.post('/login', asyncWrap(userController.loginUser));
+router.post('/login', asyncWrap.asyncWrap(userController.loginUser));
 //계정정보조회페이지
 router.post(
   '/accountInfo',
-  asyncWrap(validateToken),
-  asyncWrap(userController.getAccountInfo)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(userController.getAccountInfo)
 );
 
 //계정정보수정
 router.patch(
   '/accountInfo',
-  asyncWrap(validateToken),
-  asyncWrap(userController.modifyAccountInfo)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(userController.modifyAccountInfo)
 );
 //계정삭제
 router.delete(
   '/accountInfo',
-  asyncWrap(validateToken),
-  asyncWrap(userController.deleteAccount)
+  asyncWrap.asyncWrap(validateToken.validateToken),
+  asyncWrap.asyncWrap(userController.deleteAccount)
 );
 
-module.exports = router;
+export default router;

@@ -28,4 +28,4 @@ const uploadImages = async (req: Request, res: Response) => {
   res.status(200).send(util.success(200, '업로드 성공', path));
 };
 
-module.exports = { uploadImages };
+export default { uploadImages };

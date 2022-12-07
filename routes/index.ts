@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 
-import { errorHandler } from '../utils/util';
+import errorHandler from '../utils/utility';
 
 const userRouter = require('./userRouter');
 const categoryRouter = require('./categoryRouter');
@@ -26,6 +26,6 @@ router.use('/follow', followRouter);
 router.use('/channel', channelRouter);
 router.use('/comments', commentRouter);
 
-router.use(errorHandler);
+router.use(errorHandler.errorHandler);
 
 export default router;

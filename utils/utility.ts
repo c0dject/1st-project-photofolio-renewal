@@ -52,7 +52,7 @@ function bodyText(req: Request) {
   if (req.method !== 'GET') {
     bodyText = `${yellow('BODY\t|')}`;
     bodyText +=
-      Object.keys(req.body as any)
+      Object.keys((req.body as any) || null)
         .map((key, index) => {
           return `${index === 0 ? '' : '\t' + yellow('|')} ${green.italic(
             key

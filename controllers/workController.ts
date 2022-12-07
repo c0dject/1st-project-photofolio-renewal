@@ -1,22 +1,22 @@
-const workService = require('../services/workService');
-const userService = require('../services/userService');
+import workService from '../services/workService';
+import userService from '../services/userService';
 
 // 카테고리별 총 게시물 수 + 최신 feed list
-const getWorkList = async (req, res) => {
+const getWorkList = async (req: Request, res: Response) => {
   const { sort } = req.query;
   const result = await workService.getWorkList(sort);
   res.status(200).json(result);
 };
 
 // 지정된 피드 상세
-const getFeed = async (req, res) => {
+const getFeed = async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await workService.getFeed(id);
   res.status(200).json(result);
 };
 
-const deletefeed = async (req, res) => {
-  user_id = req.user_id;
+const deletefeed = async (req: Request, res: Response) => {
+  const user_id = req.user_id;
   const posting_id = req.params.id;
   const REQUIRE_KEYS = [user_id, posting_id];
 
@@ -37,8 +37,4 @@ const deletefeed = async (req, res) => {
   res.status(204).json({ message: 'FEED DELETED' });
 };
 
-module.exports = {
-  getWorkList,
-  getFeed,
-  deletefeed,
-};
+export default { getWorkList, getFeed, deletefeed };
