@@ -50,7 +50,8 @@ const findQuerySearchResult = `
 
     SELECT
         wp.id,
-        u.kor_name AS nickname,
+        u.kor_name,
+        u.nickname,
         u.profile_image,
         c.img_url,
         wp.title,

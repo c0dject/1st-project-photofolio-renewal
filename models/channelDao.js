@@ -98,6 +98,7 @@ const getChannel = async (following_id, user_id) => {
         wp.id, 
         wp.user_id, 
         u.nickname, 
+        u.kor_name,
         u.profile_image, 
         c.img_url,
         wp.title, 

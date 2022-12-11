@@ -63,7 +63,8 @@ const getWorkList = async (isSelect, sortOfOrder) => {
         SELECT 
         ${isSelect}
         wp.id, 
-        u.kor_name AS nickname, 
+        u.kor_name,
+        u.nickname,
         u.profile_image,  
         c.img_url, 
         wp.title, 
@@ -125,6 +126,7 @@ const getFeed = async id => {
         wp.id, 
         wp.user_id,
         u.kor_name,
+        u.nickname,
         wp.title,
         wp.content,
         wp.view_count, 
@@ -170,6 +172,7 @@ const getFeed = async id => {
         c.id,
         c.user_id,
         u.kor_name,
+        u.nickname,
         c.comment,
         SUBSTRING(c.created_at, 1, 10) AS created_at ,
         SUBSTRING(c.updated_at, 1, 10) AS updated_at
@@ -263,6 +266,7 @@ const getFeed = async id => {
         u.id AS id,
         u.login_id login_id,
         u.kor_name kor_name,
+        u.nickname nickname,
         u.eng_name eng_name,
         u.profile_image profile_image,
         u.nickname nickname,
@@ -437,6 +441,7 @@ const getFeed = async id => {
         wp.id,
         wp.user_id,
         u.nickname,
+        u.kor_name,
         u.profile_image,
         c.img_url,
         wp.title,
