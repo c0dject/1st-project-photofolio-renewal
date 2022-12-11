@@ -64,7 +64,8 @@ const getFeedsList = async user_id => {
       
       SELECT
         wp.id,
-        u.kor_name AS nickname,
+        u.kor_name AS kor_name,
+        u.nickname AS nickname,
         u.profile_image,
         c.img_url,
         wp.title,
